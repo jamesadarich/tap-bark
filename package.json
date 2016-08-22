@@ -12,11 +12,14 @@
   },
   "author": "James Monger <jameskmonger@hotmail.co.uk> (http://jamesmonger.com)",
   "contributors": [
-    "James Richford"  
+    "James Richford"
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/alsatian-test/tap-bark/issues"
   },
-  "homepage": "https://github.com/alsatian-test/tap-bark#readme"
+  "homepage": "https://github.com/alsatian-test/tap-bark#readme",
+  "dependencies": {
+    "chalk": "^1.1.3"
+  }
 }
