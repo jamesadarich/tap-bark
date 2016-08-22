@@ -1,4 +1,6 @@
-export class Stream {
+import { IStream } from "./stream.i";
+
+export class Stream implements IStream {
 
     private _stream: NodeJS.WritableStream = process.stdout;
 
