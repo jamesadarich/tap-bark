@@ -1,5 +1,6 @@
 "use strict";
 
+const chalk = require("chalk");
 let stream = process.stdout;
 
 let clearCurrentLine = () => {
@@ -52,10 +53,9 @@ setTimeout(() => {
                 stream.moveCursor(0, -1);
                 clearCurrentLine();
 
-                stream.write("Pass:     4/4\n");
-                stream.write("Ignore:   0/4\n");
-                stream.write("Todo:     0/4\n");
-                stream.write("Fail:     0/4\n");
+                stream.write(chalk.green("Pass:") + "     " + chalk.bold("4/4\n"));
+                stream.write(chalk.red("Fail:") + "     " + chalk.bold("0/4\n"));
+                stream.write(chalk.yellow("Ignore:") + "   " + chalk.bold("0/4\n"));
             }, 500);
         }, 600);
     }, 1200);
