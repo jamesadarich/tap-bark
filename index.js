@@ -45,6 +45,18 @@ setTimeout(() => {
 
         setTimeout(() => {
             replaceTestCase("ThisIsTheLast");
+
+            setTimeout(() => {
+                stream.moveCursor(0, -1);
+                clearCurrentLine();
+                stream.moveCursor(0, -1);
+                clearCurrentLine();
+
+                stream.write("Pass:     4/4\n");
+                stream.write("Ignore:   0/4\n");
+                stream.write("Todo:     0/4\n");
+                stream.write("Fail:     0/4\n");
+            }, 500);
         }, 600);
     }, 1200);
 }, 500);
