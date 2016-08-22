@@ -15,13 +15,13 @@
         "suppressImplicitAnyIndexErrors": true
     },
     "filesGlob": [
-        "**/*.ts",
-        "**/*.tsx",
-        "!node_modules/**",
-        "!typings/**"
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "typings/index.d.ts"
     ],
     "files": [
-        "src/stream/stream.ts"
+        "src/stream/stream.ts",
+        "typings/index.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
