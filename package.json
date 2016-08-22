@@ -1,0 +1,22 @@
+{
+  "name": "tap-bark",
+  "version": "1.0.0",
+  "description": "TAP parser for Alsatian",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alsatian-test/tap-bark.git"
+  },
+  "author": "James Monger <jameskmonger@hotmail.co.uk> (http://jamesmonger.com)",
+  "contributors": [
+    "James Richford"  
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alsatian-test/tap-bark/issues"
+  },
+  "homepage": "https://github.com/alsatian-test/tap-bark#readme"
+}
