@@ -21,5 +21,8 @@
   "homepage": "https://github.com/alsatian-test/tap-bark#readme",
   "dependencies": {
     "chalk": "^1.1.3"
+  },
+  "devDependencies": {
+    "alsatian": "^1.0.0-alpha.11"
   }
 }
