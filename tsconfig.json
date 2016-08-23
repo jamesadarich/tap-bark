@@ -17,7 +17,7 @@
     "filesGlob": [
         "src/**/*.ts",
         "test/**/*.ts",
-        "typings/index.d.ts"
+        "!node_modules"
     ],
     "files": [
         "src/output/output.ts",
@@ -25,8 +25,7 @@
         "src/stream/stream.ts",
         "src/tap-bark.ts",
         "test/_builders/stream-builder.ts",
-        "test/output/setup.test.ts",
-        "typings/index.d.ts"
+        "test/output/setup.test.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
