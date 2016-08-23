@@ -13,8 +13,8 @@ export class OutputSetupTests {
         output.setup();
 
         Expect(spy.calls.length).toBe(2);
-        Expect(spy.calls[0].args).toBe([ "" ]);
-        Expect(spy.calls[1].args).toBe([ "" ]);
+        Expect(spy.calls[0].args).toEqual([ "" ]);
+        Expect(spy.calls[1].args).toEqual([ "" ]);
     }
 
 }
