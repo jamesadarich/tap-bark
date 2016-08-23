@@ -1,4 +1,5 @@
-import { IStream, Stream } from "./_stream";
+import { IStream } from "./stream/stream.i";
+import { Stream } from "./stream/stream";
 
 export class TapBark {
 

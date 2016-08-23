@@ -20,10 +20,12 @@
         "typings/index.d.ts"
     ],
     "files": [
-        "src/_stream.ts",
+        "src/output/output.ts",
         "src/stream/stream.i.ts",
         "src/stream/stream.ts",
         "src/tap-bark.ts",
+        "test/_builders/stream-builder.ts",
+        "test/output/setup.test.ts",
         "typings/index.d.ts"
     ],
     "atom": {
