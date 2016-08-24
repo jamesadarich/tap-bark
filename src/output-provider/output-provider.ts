@@ -11,6 +11,6 @@ export class OutputProvider implements IOutputProvider {
     }
 
     public getTestMessage(name: string): string {
-        return undefined;
+        return ` --- ${name}`;
     }
 }
