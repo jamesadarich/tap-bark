@@ -11,10 +11,9 @@ export class GetResultMessageTests {
     public shouldReturnCorrectMessageForPass(passes: number, total: number) {
         let provider = new OutputProviderBuilder().build();
         let expected = chalk.green(`Pass: ${passes}/${total}`);
+        let actual = provider.getResultMessage(ResultType.PASS, passes, total);
 
-        Expect(() => {
-            provider.getResultMessage(ResultType.PASS, passes, total);
-        }).toBe(expected);
+        Expect(actual).toBe(expected);
     }
 
     @TestCase(5, 10)
@@ -23,10 +22,9 @@ export class GetResultMessageTests {
     public shouldReturnCorrectMessageForFail(failures: number, total: number) {
         let provider = new OutputProviderBuilder().build();
         let expected = chalk.red(`Fail: ${failures}/${total}`);
+        let actual = provider.getResultMessage(ResultType.FAIL, failures, total);
 
-        Expect(() => {
-            provider.getResultMessage(ResultType.FAIL, failures, total);
-        }).toBe(expected);
+        Expect(actual).toBe(expected);
     }
 
     @TestCase(5, 10)
@@ -35,10 +33,9 @@ export class GetResultMessageTests {
     public shouldReturnCorrectMessageForIgnored(ignores: number, total: number) {
         let provider = new OutputProviderBuilder().build();
         let expected = chalk.red(`Ignore: ${ignores}/${total}`);
+        let actual = provider.getResultMessage(ResultType.IGNORE, ignores, total);
 
-        Expect(() => {
-            provider.getResultMessage(ResultType.IGNORE, ignores, total);
-        }).toBe(expected);
+        Expect(actual).toBe(expected);
     }
 
 }

@@ -9,10 +9,9 @@ export class GetTestFixtureMessage {
     public shouldReturnCorrectMessageForTestFixture(name: string) {
         let provider = new OutputProviderBuilder().build();
         let expected = `# [${name}]`;
+        let actual = provider.getTestFixtureMessage(name);
 
-        Expect(() => {
-            provider.getTestFixtureMessage(name);
-        }).toBe(expected);
+        Expect(actual).toBe(expected);
     }
 
 }
