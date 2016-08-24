@@ -4,7 +4,11 @@ export class StreamBuilder {
 
     public build(): IStream {
         return <IStream> {
-            writeLine: (message: string) => { }
+            writeLine: (message: string) => { },
+            write: (message: string) => { },
+            moveCursor: (x: number, y: number) => { },
+            cursorTo: (x: number, y: number) => { },
+            clearLine: () => { }
         };
     }
 
