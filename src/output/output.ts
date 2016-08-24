@@ -32,7 +32,20 @@ export class Output {
     }
 
     public setTestName(name: string): void {
-        
+        // move up one rows
+        this._stream.moveCursor(0, -1);
+
+        // clear the line
+        this._stream.clearLine();
+
+        // write the new name
+        this._stream.write(name);
+
+        // move down one rows
+        this._stream.moveCursor(0, 1);
+
+        // set the cursor to 0 x (all the way left), we don't want to move it up or down
+        this._stream.cursorTo(0, undefined);
     }
 
 }
