@@ -1,4 +1,5 @@
 import { IStream } from "../stream/stream.i";
+import { IResults } from "../results.i";
 
 export class Output {
 
@@ -46,6 +47,10 @@ export class Output {
 
         // set the cursor to 0 x (all the way left), we don't want to move it up or down
         this._stream.cursorTo(0, undefined);
+    }
+
+    public outputResults(results: IResults): void {
+        
     }
 
 }
