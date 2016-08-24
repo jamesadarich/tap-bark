@@ -34,6 +34,7 @@
         "test/_builders/stream-builder.ts",
         "test/output-provider/get-result-message.test.ts",
         "test/output-provider/get-test-fixture-message.test.ts",
+        "test/output-provider/get-test-message.test.ts",
         "test/output/output-results.test.ts",
         "test/output/set-fixture-name.test.ts",
         "test/output/set-test-name.test.ts",
