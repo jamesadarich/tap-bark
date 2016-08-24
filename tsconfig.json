@@ -20,6 +20,7 @@
         "!node_modules"
     ],
     "files": [
+        "src/output/output.i.ts",
         "src/output/output.ts",
         "src/stream/stream.i.ts",
         "src/stream/stream.ts",
