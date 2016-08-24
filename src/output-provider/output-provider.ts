@@ -10,7 +10,7 @@ export class OutputProvider implements IOutputProvider {
         return undefined;
     }
 
-    public getTestNameMessage(name: string): string {
+    public getTestMessage(name: string): string {
         return undefined;
     }
 }
