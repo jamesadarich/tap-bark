@@ -8,4 +8,20 @@ export class Stream implements IStream {
         this._stream.write(message + "\n");
     }
 
+    public write(message: string): void {
+
+    }
+
+    public moveCursor(x: number, y: number): void {
+
+    }
+
+    public cursorTo(x: number, y: number): void {
+
+    }
+
+    public clearLine(): void {
+
+    }
+
 }
