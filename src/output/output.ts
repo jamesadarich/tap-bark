@@ -31,4 +31,8 @@ export class Output {
         this._stream.cursorTo(0, undefined);
     }
 
+    public setTestName(name: string): void {
+        
+    }
+
 }

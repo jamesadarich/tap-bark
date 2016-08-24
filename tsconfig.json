@@ -26,6 +26,7 @@
         "src/tap-bark.ts",
         "test/_builders/stream-builder.ts",
         "test/output/set-fixture-name.test.ts",
+        "test/output/set-test-name.test.ts",
         "test/output/setup.test.ts"
     ],
     "atom": {
