@@ -25,6 +25,7 @@
         "src/stream/stream.i.ts",
         "src/stream/stream.ts",
         "src/tap-bark.ts",
+        "test/_builders/output-builder.ts",
         "test/_builders/stream-builder.ts",
         "test/output/set-fixture-name.test.ts",
         "test/output/set-test-name.test.ts",
