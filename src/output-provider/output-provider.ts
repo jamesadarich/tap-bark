@@ -7,7 +7,7 @@ export class OutputProvider implements IOutputProvider {
     }
 
     public getTestFixtureMessage(name: string): string {
-        return undefined;
+        return `# [${name}]`;
     }
 
     public getTestMessage(name: string): string {
