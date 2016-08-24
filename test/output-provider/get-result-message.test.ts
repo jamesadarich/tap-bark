@@ -32,7 +32,7 @@ export class GetResultMessageTests {
     @TestCase(100, 200)
     public shouldReturnCorrectMessageForIgnored(ignores: number, total: number) {
         let provider = new OutputProviderBuilder().build();
-        let expected = chalk.red(`Ignore: ${ignores}/${total}`);
+        let expected = chalk.yellow(`Ignore: ${ignores}/${total}`);
         let actual = provider.getResultMessage(ResultType.IGNORE, ignores, total);
 
         Expect(actual).toBe(expected);
