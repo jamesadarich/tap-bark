@@ -1,5 +1,5 @@
 import { TestCase, Expect, SpyOn } from "alsatian";
-import { Output } from "../../src/output/output";
+import { OutputBuilder } from "../_builders/output-builder";
 import { StreamBuilder } from "../_builders/stream-builder";
 
 export class SetFixtureNameTests {
@@ -51,7 +51,9 @@ export class SetFixtureNameTests {
             }
         });
 
-        let output = new Output(stream);
+        let output = new OutputBuilder()
+            .withStream(stream)
+            .build();
         output.setFixtureName(fixtureName);
 
         // ensure that the correct calls happened in the correct order

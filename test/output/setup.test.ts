@@ -1,6 +1,6 @@
 import { Test, Expect, SpyOn } from "alsatian";
-import { Output } from "../../src/output/output";
 import { StreamBuilder } from "../_builders/stream-builder";
+import { OutputBuilder } from "../_builders/output-builder";
 
 export class OutputSetupTests {
 
@@ -9,7 +9,9 @@ export class OutputSetupTests {
         let stream = new StreamBuilder().build();
         let spy = SpyOn(stream, "writeLine");
 
-        let output = new Output(stream);
+        let output = new OutputBuilder()
+            .withStream(stream)
+            .build();
         output.setup();
 
         Expect(spy.calls.length).toBe(2);

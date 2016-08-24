@@ -1,5 +1,5 @@
 import { TestCase, Expect, SpyOn } from "alsatian";
-import { Output } from "../../src/output/output";
+import { OutputBuilder } from "../_builders/output-builder";
 import { StreamBuilder } from "../_builders/stream-builder";
 
 export class SetTestNameTests {
@@ -51,7 +51,9 @@ export class SetTestNameTests {
             }
         });
 
-        let output = new Output(stream);
+        let output = new OutputBuilder()
+            .withStream(stream)
+            .build();
         output.setTestName(testName);
 
         // ensure that the correct calls happened in the correct order
