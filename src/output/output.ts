@@ -15,7 +15,20 @@ export class Output {
     }
 
     public setFixtureName(name: string): void {
-        
+        // move up two rows
+        this._stream.moveCursor(0, -2);
+
+        // clear the line
+        this._stream.clearLine();
+
+        // write the new name
+        this._stream.write(name);
+
+        // move down two rows
+        this._stream.moveCursor(0, 2);
+
+        // set the cursor to 0 x (all the way left), we don't want to move it up or down
+        this._stream.cursorTo(0, undefined);
     }
 
 }
