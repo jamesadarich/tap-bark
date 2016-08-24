@@ -1,4 +1,5 @@
 import { IOutput } from "./output/output.i";
+import { IResults } from "./results.i";
 
 export class TapBark {
 
@@ -25,6 +26,16 @@ export class TapBark {
 
                     setTimeout(() => {
                         this._output.setTestName("The Last Test Case");
+
+                        setTimeout(() => {
+                            let results: IResults = {
+                                pass: 4,
+                                fail: 0,
+                                ignore: 1
+                            };
+
+                            this._output.outputResults(results);
+                        }, 300);
                     }, 600);
                 }, 600);
             }, 600);
