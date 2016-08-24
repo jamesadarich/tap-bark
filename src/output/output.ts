@@ -53,9 +53,9 @@ export class Output {
         let total = results.pass + results.fail + results.ignore;
 
         this._stream.writeLine("");
-        this._stream.writeLine(`Pass:            ${results.pass}/${total}`);
-        this._stream.writeLine(`Fail:            ${results.fail}/${total}`);
-        this._stream.writeLine(`Ignore:            ${results.ignore}/${total}`);
+        this._stream.writeLine(`Pass: ${results.pass}/${total}`);
+        this._stream.writeLine(`Fail: ${results.fail}/${total}`);
+        this._stream.writeLine(`Ignore: ${results.ignore}/${total}`);
     }
 
 }

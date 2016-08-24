@@ -20,8 +20,11 @@
         "!node_modules"
     ],
     "files": [
+        "src/output-provider/output-provider.i.ts",
+        "src/output-provider/output-provider.ts",
         "src/output/output.i.ts",
         "src/output/output.ts",
+        "src/result-type.ts",
         "src/results.i.ts",
         "src/stream/stream.i.ts",
         "src/stream/stream.ts",
