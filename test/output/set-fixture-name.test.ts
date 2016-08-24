@@ -51,6 +51,9 @@ export class SetFixtureNameTests {
             }
         });
 
+        let output = new Output(stream);
+        output.setFixtureName(fixtureName);
+
         // ensure that the correct calls happened in the correct order
         Expect(moveCursorUpIndex).toBe(0);
         Expect(clearLineIndex).toBe(1);

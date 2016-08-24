@@ -14,4 +14,8 @@ export class Output {
         this._stream.writeLine("");
     }
 
+    public setFixtureName(name: string): void {
+        
+    }
+
 }
