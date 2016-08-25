@@ -1,10 +1,11 @@
-import { Test, TestCase, Expect, SpyOn } from "alsatian";
+import { Test, TestCase, Expect, SpyOn, IgnoreTests } from "alsatian";
 import { OutputBuilder } from "../_builders/output-builder";
 import { StreamBuilder } from "../_builders/stream-builder";
 import { OutputProviderBuilder } from "../_builders/output-provider-builder";
 import { IResults } from "../../src/results.i";
 import { ResultType } from "../../src/result-type";
 
+@IgnoreTests("SpyOn(...).andCall is currently broken (see alsatian#133)")
 export class OutputResultsTests {
 
     @TestCase(5)
@@ -17,7 +18,7 @@ export class OutputResultsTests {
         };
 
         let stream = new StreamBuilder().build();
-        SpyOn(stream, "writeLine");
+        SpyOn(stream, "writeLine").andCall(console.log);
 
         let outputProvider = new OutputProviderBuilder().build();
         SpyOn(outputProvider, "getResultMessage").andCall((type: ResultType, resultCount: number, totalCount: number) => {
@@ -27,6 +28,8 @@ export class OutputResultsTests {
 
             return "";
         });
+
+        console.log("value is " + outputProvider.getResultMessage(undefined, undefined, undefined));
 
         let output = new OutputBuilder()
             .withStream(stream)
