@@ -18,7 +18,7 @@ export class OutputResultsTests {
         };
 
         let stream = new StreamBuilder().build();
-        SpyOn(stream, "writeLine").andCall(console.log);
+        SpyOn(stream, "writeLine");
 
         let outputProvider = new OutputProviderBuilder().build();
         SpyOn(outputProvider, "getResultMessage").andCall((type: ResultType, resultCount: number, totalCount: number) => {
