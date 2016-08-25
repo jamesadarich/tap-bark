@@ -29,8 +29,6 @@ export class OutputResultsTests {
             return "";
         });
 
-        console.log("value is " + outputProvider.getResultMessage(undefined, undefined, undefined));
-
         let output = new OutputBuilder()
             .withStream(stream)
             .withOutputProvider(outputProvider)
