@@ -1,12 +1,15 @@
 import { IStream } from "../stream/stream.i";
+import { IOutputProvider } from "../output-provider/output-provider.i";
 import { IResults } from "../results.i";
 
 export class Output {
 
     private _stream: IStream;
+    private _outputProvider: IOutputProvider;
 
-    constructor(stream: IStream) {
+    constructor(stream: IStream, outputProvider: IOutputProvider) {
         this._stream = stream;
+        this._outputProvider = outputProvider;
     }
 
     public setup(): void {
