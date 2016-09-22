@@ -25,4 +25,8 @@ export class Stream implements IStream {
         readline.clearLine(this._stream, 0);
     }
 
+    public getStream(): NodeJS.WritableStream {
+        return this._stream;
+    }
+
 }

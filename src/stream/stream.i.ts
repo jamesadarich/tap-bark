@@ -4,4 +4,5 @@ export interface IStream {
     moveCursor(x: number, y: number): void;
     cursorTo(x: number, y: number): void;
     clearLine(): void;
+    getStream(): NodeJS.WritableStream;
 }

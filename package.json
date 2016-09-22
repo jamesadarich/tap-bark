@@ -4,7 +4,7 @@
   "description": "TAP parser for Alsatian",
   "main": "index.js",
   "scripts": {
-    "test": "alsatian \"./test/**/*.test.js\"",
+    "test": "alsatian \"./test/**/*.test.js\" | node src/tap-bark.js",
     "build": "tsc"
   },
   "repository": {
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/alsatian-test/tap-bark#readme",
   "dependencies": {
     "chalk": "^1.1.3",
+    "duplexer": "^0.1.1",
     "tap-parser": "^3.0.3"
   },
   "devDependencies": {

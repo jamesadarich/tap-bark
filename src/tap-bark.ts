@@ -1,55 +1,88 @@
 import { IOutput } from "./output/output.i";
 import { IResults } from "./results.i";
+import { IStream } from "./stream/stream.i";
+import { IOutputProvider } from "./output-provider/output-provider.i";
+import { Stream } from "./stream/stream";
+import { Output } from "./output/output";
+import { OutputProvider } from "./output-provider/output-provider";
+
+interface Assertion {
+    id: number;
+    ok: boolean;
+    name: string;
+    todo?: boolean | string;
+    skip?: boolean | string;
+    diag?: any;
+}
+
+interface TapBarkArguments {
+    output?: IOutput;
+    outputProvider?: IOutputProvider;
+}
 
 export class TapBark {
 
-    private _output: IOutput;
-    private _parser: NodeJS.EventEmitter;
+    private output: IOutput;
+    private parser: NodeJS.EventEmitter;
 
     constructor (output: IOutput, parser: NodeJS.EventEmitter) {
-        this._output = output;
-        this._parser = parser;
+        this.output = output;
+        this.parser = parser;
 
-        this._output.setup();
-        this._output.setFixtureName("James's Test Fixture");
-        this._output.setTestName("The First Test Case");
+        this.setupListeners();
 
-        setTimeout(() => {
-            this._output.setTestName("The Second Test Case");
-
-            setTimeout(() => {
-                this._output.setTestName("The Third Test Case");
-
-                setTimeout(() => {
-                    this._output.setFixtureName("A Different Fixture Entirely");
-                    this._output.setTestName("An Interesting Test Case");
-
-                    setTimeout(() => {
-                        this._output.setTestName("The Last Test Case");
-
-                        setTimeout(() => {
-                            let results: IResults = {
-                                pass: 4,
-                                fail: 0,
-                                ignore: 1
-                            };
-
-                            this._output.outputResults(results);
-                        }, 300);
-                    }, 600);
-                }, 600);
-            }, 600);
-        }, 600);
+        this.output.setup();
     }
 
+    public create(stream: IStream, input: NodeJS.EventEmitter): TapBark {
+        let outputProvider = new OutputProvider();
+        let output = new Output(stream, outputProvider);
+
+        let tap = new TapBark(output, input);
+
+        return tap;
+    }
+
+    private FIXTURE_REGEXP: RegExp = /# FIXTURE (.*)/g;
+
+    private setupListeners(): void {
+        this.parser.on("comment", (comment: string) => {
+            let fixtureParse = this.FIXTURE_REGEXP.exec(comment);
+
+            if (fixtureParse !== null) {
+                this.output.setFixtureName(fixtureParse[1]);
+            }
+        });
+
+        this.parser.on("assert", (assertion: Assertion) => {
+            this.output.setTestName(assertion.name);
+        });
+
+        this.parser.on("complete", (results: any) => {
+            let _results: IResults = {
+                pass: results.pass || 0,
+                fail: (results.failures || []).length, // length of failures, or 0
+                ignore: (results.skip || 0) + (results.todo || 0)
+            };
+
+            this.output.outputResults(_results);
+
+            if (results.ok) {
+                process.exit(0);
+            } else {
+                process.exit(1);
+            }
+        });
+    }
 }
 
-import { Stream } from "./stream/stream";
-import { OutputProvider } from "./output-provider/output-provider";
-import { Output } from "./output/output";
+const parser = require("tap-parser");
+const duplexer = require("duplexer");
 
 let stream = new Stream();
-let outputProvider = new OutputProvider();
-let output = new Output(stream, outputProvider);
+let input = parser();
+let duplexed = duplexer(input, stream.getStream());
 
-let tap = new TapBark(output, undefined);
+process.stdin
+    .pipe(duplexed)
+    .pipe(process.stdout);
