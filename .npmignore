@@ -1,0 +1,12 @@
+# All TypeScript sources
+src/**/*.ts
+index.ts
+
+# TypeScript config
+tsconfig.json
+
+# Typings info
+typings.json
+
+# Tests
+test
