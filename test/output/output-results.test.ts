@@ -1,8 +1,11 @@
-import { Test, TestCase, Expect, SpyOn } from "alsatian";
+import { Test, TestCase, Expect, SpyOn, IgnoreTests } from "alsatian";
 import { OutputBuilder } from "../_builders/output-builder";
 import { StreamBuilder } from "../_builders/stream-builder";
+import { OutputProviderBuilder } from "../_builders/output-provider-builder";
 import { IResults } from "../../src/results.i";
+import { ResultType } from "../../src/result-type";
 
+@IgnoreTests("SpyOn(...).andCall is currently broken (see alsatian#133)")
 export class OutputResultsTests {
 
     @TestCase(5)
@@ -17,13 +20,23 @@ export class OutputResultsTests {
         let stream = new StreamBuilder().build();
         SpyOn(stream, "writeLine");
 
+        let outputProvider = new OutputProviderBuilder().build();
+        SpyOn(outputProvider, "getResultMessage").andCall((type: ResultType, resultCount: number, totalCount: number) => {
+            if (type === ResultType.PASS) {
+                return `p ${resultCount} ${totalCount}`;
+            }
+
+            return "";
+        });
+
         let output = new OutputBuilder()
             .withStream(stream)
+            .withOutputProvider(outputProvider)
             .build();
 
         output.outputResults(results);
 
-        Expect(stream.writeLine).toHaveBeenCalledWith(`Pass:            ${passes}/${passes}`);
+        Expect(stream.writeLine).toHaveBeenCalledWith(`p ${passes} ${passes}`);
     }
 
     @TestCase(5)
@@ -38,13 +51,23 @@ export class OutputResultsTests {
         let stream = new StreamBuilder().build();
         SpyOn(stream, "writeLine");
 
+        let outputProvider = new OutputProviderBuilder().build();
+        SpyOn(outputProvider, "getResultMessage").andCall((type: ResultType, resultCount: number, totalCount: number) => {
+            if (type === ResultType.FAIL) {
+                return `f ${resultCount} ${totalCount}`;
+            }
+
+            return "";
+        });
+
         let output = new OutputBuilder()
             .withStream(stream)
+            .withOutputProvider(outputProvider)
             .build();
 
         output.outputResults(results);
 
-        Expect(stream.writeLine).toHaveBeenCalledWith(`Fail:            ${fails}/${fails}`);
+        Expect(stream.writeLine).toHaveBeenCalledWith(`f ${fails} ${fails}`);
     }
 
     @TestCase(5)
@@ -59,13 +82,23 @@ export class OutputResultsTests {
         let stream = new StreamBuilder().build();
         SpyOn(stream, "writeLine");
 
+        let outputProvider = new OutputProviderBuilder().build();
+        SpyOn(outputProvider, "getResultMessage").andCall((type: ResultType, resultCount: number, totalCount: number) => {
+            if (type === ResultType.IGNORE) {
+                return `i ${resultCount} ${totalCount}`;
+            }
+
+            return "";
+        });
+
         let output = new OutputBuilder()
             .withStream(stream)
+            .withOutputProvider(outputProvider)
             .build();
 
         output.outputResults(results);
 
-        Expect(stream.writeLine).toHaveBeenCalledWith(`Ignore:            ${ignores}/${ignores}`);
+        Expect(stream.writeLine).toHaveBeenCalledWith(`i ${ignores} ${ignores}`);
     }
 
     @Test()
@@ -76,18 +109,26 @@ export class OutputResultsTests {
             ignore: 4
         };
 
+        let total = (results.pass + results.fail + results.ignore);
+
         let stream = new StreamBuilder().build();
         SpyOn(stream, "writeLine");
 
+        let outputProvider = new OutputProviderBuilder().build();
+        SpyOn(outputProvider, "getResultMessage").andCall((type: ResultType, resultCount: number, totalCount: number) => {
+            return `${type} ${resultCount} ${totalCount}`;
+        });
+
         let output = new OutputBuilder()
             .withStream(stream)
+            .withOutputProvider(outputProvider)
             .build();
 
         output.outputResults(results);
 
-        Expect(stream.writeLine).toHaveBeenCalledWith(`Pass:            2/9`);
-        Expect(stream.writeLine).toHaveBeenCalledWith(`Fail:            3/9`);
-        Expect(stream.writeLine).toHaveBeenCalledWith(`Ignore:            4/9`);
+        Expect(stream.writeLine).toHaveBeenCalledWith(`${ResultType.PASS} ${results.pass} ${total}`);
+        Expect(stream.writeLine).toHaveBeenCalledWith(`${ResultType.FAIL} ${results.fail} ${total}`);
+        Expect(stream.writeLine).toHaveBeenCalledWith(`${ResultType.IGNORE} ${results.ignore} ${total}`);
     }
 
 }

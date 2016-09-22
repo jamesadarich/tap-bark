@@ -1,12 +1,16 @@
 import { IStream } from "../stream/stream.i";
+import { IOutputProvider } from "../output-provider/output-provider.i";
 import { IResults } from "../results.i";
+import { ResultType } from "../result-type";
 
 export class Output {
 
     private _stream: IStream;
+    private _outputProvider: IOutputProvider;
 
-    constructor(stream: IStream) {
+    constructor(stream: IStream, outputProvider: IOutputProvider) {
         this._stream = stream;
+        this._outputProvider = outputProvider;
     }
 
     public setup(): void {
@@ -53,9 +57,9 @@ export class Output {
         let total = results.pass + results.fail + results.ignore;
 
         this._stream.writeLine("");
-        this._stream.writeLine(`Pass: ${results.pass}/${total}`);
-        this._stream.writeLine(`Fail: ${results.fail}/${total}`);
-        this._stream.writeLine(`Ignore: ${results.ignore}/${total}`);
+        this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.PASS, results.pass, total));
+        this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.FAIL, results.fail, total));
+        this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.IGNORE, results.ignore, total));
     }
 
 }

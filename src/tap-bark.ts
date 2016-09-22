@@ -45,9 +45,11 @@ export class TapBark {
 }
 
 import { Stream } from "./stream/stream";
+import { OutputProvider } from "./output-provider/output-provider";
 import { Output } from "./output/output";
 
 let stream = new Stream();
-let output = new Output(stream);
+let outputProvider = new OutputProvider();
+let output = new Output(stream, outputProvider);
 
 let tap = new TapBark(output, undefined);
