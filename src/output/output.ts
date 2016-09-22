@@ -62,4 +62,8 @@ export class Output {
         this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.IGNORE, results.ignore, total));
     }
 
+    public getStream(): IStream {
+        return this._stream;
+    }
+
 }

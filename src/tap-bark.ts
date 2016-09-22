@@ -5,6 +5,8 @@ import { IOutputProvider } from "./output-provider/output-provider.i";
 import { Stream } from "./stream/stream";
 import { Output } from "./output/output";
 import { OutputProvider } from "./output-provider/output-provider";
+const parser = require("tap-parser");
+const duplexer = require("duplexer");
 
 interface Assertion {
     id: number;
@@ -34,13 +36,18 @@ export class TapBark {
         this.output.setup();
     }
 
-    public create(stream: IStream, input: NodeJS.EventEmitter): TapBark {
+    public static create(): TapBark {
+        let stream = new Stream();
+        let input = parser();
+
         let outputProvider = new OutputProvider();
         let output = new Output(stream, outputProvider);
 
-        let tap = new TapBark(output, input);
+        return new TapBark(output, input);
+    }
 
-        return tap;
+    public getPipeable(): any {
+        return duplexer(this.parser, this.output.getStream().getUnderlyingStream());
     }
 
     private FIXTURE_REGEXP: RegExp = /# FIXTURE (.*)/g;
@@ -75,14 +82,3 @@ export class TapBark {
         });
     }
 }
-
-const parser = require("tap-parser");
-const duplexer = require("duplexer");
-
-let stream = new Stream();
-let input = parser();
-let duplexed = duplexer(input, stream.getStream());
-
-process.stdin
-    .pipe(duplexed)
-    .pipe(process.stdout);

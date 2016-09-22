@@ -14,33 +14,16 @@
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true
     },
+    "exclude": [
+        "node_modules",
+        "typings"
+    ],
     "filesGlob": [
         "src/**/*.ts",
         "test/**/*.ts",
-        "!node_modules"
-    ],
-    "files": [
-        "src/output-provider/output-provider.i.ts",
-        "src/output-provider/output-provider.ts",
-        "src/output/output.i.ts",
-        "src/output/output.ts",
-        "src/result-type.ts",
-        "src/results.i.ts",
-        "src/stream/stream.i.ts",
-        "src/stream/stream.ts",
-        "src/tap-bark.ts",
-        "test/_builders/output-builder.ts",
-        "test/_builders/output-provider-builder.ts",
-        "test/_builders/stream-builder.ts",
-        "test/output-provider/get-result-message.test.ts",
-        "test/output-provider/get-test-fixture-message.test.ts",
-        "test/output-provider/get-test-message.test.ts",
-        "test/output/output-results.test.ts",
-        "test/output/set-fixture-name.test.ts",
-        "test/output/set-test-name.test.ts",
-        "test/output/setup.test.ts"
+        "index.ts"
     ],
     "atom": {
-        "rewriteTsconfig": true
+        "rewriteTsconfig": false
     }
 }
