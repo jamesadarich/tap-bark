@@ -1,4 +1,4 @@
-"use strict";
+#!/usr/bin/env node
 var tap_bark_1 = require("./src/tap-bark");
 var bark = tap_bark_1.TapBark.create();
 process.stdin

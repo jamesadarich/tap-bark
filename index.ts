@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { TapBark } from "./src/tap-bark";
 
 let bark = TapBark.create();
