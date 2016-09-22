@@ -1,8 +1,11 @@
 {
   "name": "tap-bark",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "TAP parser for Alsatian",
   "main": "index.js",
+  "bin": {
+    "tap-bark": "index.js"
+  },
   "scripts": {
     "test": "alsatian \"./test/**/*.test.js\" | node index.js",
     "build": "tsc"
