@@ -4,8 +4,8 @@ import { StreamBuilder } from "../_builders/stream-builder";
 import { OutputProviderBuilder } from "../_builders/output-provider-builder";
 import { IResults } from "../../src/results.i";
 import { ResultType } from "../../src/result-type";
+import { Assertion } from "../../src/external/tap-parser";
 
-@IgnoreTests("SpyOn(...).andCall is currently broken (see alsatian#133)")
 export class OutputResultsTests {
 
     @TestCase(5)
@@ -14,7 +14,8 @@ export class OutputResultsTests {
         let results: IResults = {
             pass: passes,
             fail: 0,
-            ignore: 0
+            ignore: 0,
+            failures: []
         };
 
         let stream = new StreamBuilder().build();
@@ -45,7 +46,8 @@ export class OutputResultsTests {
         let results: IResults = {
             pass: 0,
             fail: fails,
-            ignore: 0
+            ignore: 0,
+            failures: []
         };
 
         let stream = new StreamBuilder().build();
@@ -76,7 +78,8 @@ export class OutputResultsTests {
         let results: IResults = {
             pass: 0,
             fail: 0,
-            ignore: ignores
+            ignore: ignores,
+            failures: []
         };
 
         let stream = new StreamBuilder().build();
@@ -106,7 +109,8 @@ export class OutputResultsTests {
         let results: IResults = {
             pass: 2,
             fail: 3,
-            ignore: 4
+            ignore: 4,
+            failures: []
         };
 
         let total = (results.pass + results.fail + results.ignore);
@@ -129,6 +133,51 @@ export class OutputResultsTests {
         Expect(stream.writeLine).toHaveBeenCalledWith(`${ResultType.PASS} ${results.pass} ${total}`);
         Expect(stream.writeLine).toHaveBeenCalledWith(`${ResultType.FAIL} ${results.fail} ${total}`);
         Expect(stream.writeLine).toHaveBeenCalledWith(`${ResultType.IGNORE} ${results.ignore} ${total}`);
+    }
+
+    @Test()
+    public shouldEmitFailureInfo() {
+        const failureMessage = "failure failure!!!";
+
+        let results: IResults = {
+            pass: 2,
+            fail: 3,
+            ignore: 4,
+            failures: []
+        };
+
+        results.failures.push({
+            id: 1,
+            ok: false,
+            name: "Some failing assertion",
+            diag: {
+                message: "Bla bla bla"
+            }
+        });
+
+        results.failures.push({
+            id: 2,
+            ok: false,
+            name: "More bla bla bla",
+            diag: {
+                message: "Boring diagnostics wabababa"
+            }
+        });
+
+        let stream = new StreamBuilder().build();
+        SpyOn(stream, "writeLine");
+
+        let outputProvider = new OutputProviderBuilder().build();
+        SpyOn(outputProvider, "getFailureMessage").andReturn(failureMessage);
+
+        let output = new OutputBuilder()
+            .withStream(stream)
+            .withOutputProvider(outputProvider)
+            .build();
+
+        output.outputResults(results);
+
+        Expect(stream.writeLine).toHaveBeenCalledWith(failureMessage);
     }
 
 }

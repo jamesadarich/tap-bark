@@ -60,6 +60,13 @@ export class Output {
         this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.PASS, results.pass, total));
         this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.FAIL, results.fail, total));
         this._stream.writeLine(this._outputProvider.getResultMessage(ResultType.IGNORE, results.ignore, total));
+
+        if (results.failures.length > 0) {
+            results.failures.forEach(f => {
+                this._stream.writeLine("");
+                this._stream.writeLine(this._outputProvider.getFailureMessage(f));
+            })
+        }
     }
 
     public getStream(): IStream {

@@ -5,22 +5,11 @@ import { IOutputProvider } from "./output-provider/output-provider.i";
 import { Stream } from "./stream/stream";
 import { Output } from "./output/output";
 import { OutputProvider } from "./output-provider/output-provider";
+
+import { Assertion as TAPAssertion, Results as TAPResults } from "./external/tap-parser";
+
 const parser = require("tap-parser");
 const duplexer = require("duplexer");
-
-interface Assertion {
-    id: number;
-    ok: boolean;
-    name: string;
-    todo?: boolean | string;
-    skip?: boolean | string;
-    diag?: any;
-}
-
-interface TapBarkArguments {
-    output?: IOutput;
-    outputProvider?: IOutputProvider;
-}
 
 export class TapBark {
 
@@ -52,6 +41,12 @@ export class TapBark {
 
     private FIXTURE_REGEXP: RegExp = /# FIXTURE (.*)/g;
 
+    // these three functions are needed because tap-parser doesn't always emit a value
+    // see tap-parser#40 on github
+    private getPassCount = (results: TAPResults) => (results.pass || 0);
+    private getFailCount = (results: TAPResults) => (results.fail || (results.failures || []).length);
+    private getIgnoreCount = (results: TAPResults) => (results.skip || 0) + (results.todo || 0);
+
     private setupListeners(): void {
         this.parser.on("comment", (comment: string) => {
             let fixtureParse = this.FIXTURE_REGEXP.exec(comment);
@@ -61,15 +56,16 @@ export class TapBark {
             }
         });
 
-        this.parser.on("assert", (assertion: Assertion) => {
+        this.parser.on("assert", (assertion: TAPAssertion) => {
             this.output.setTestName(assertion.name);
         });
 
-        this.parser.on("complete", (results: any) => {
+        this.parser.on("complete", (results: TAPResults) => {
             let _results: IResults = {
-                pass: results.pass || 0,
-                fail: (results.failures || []).length, // length of failures, or 0
-                ignore: (results.skip || 0) + (results.todo || 0)
+                pass: this.getPassCount(results),
+                fail: this.getFailCount(results),
+                ignore: this.getIgnoreCount(results),
+                failures: results.failures
             };
 
             this.output.outputResults(_results);
