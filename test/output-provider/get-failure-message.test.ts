@@ -24,7 +24,7 @@ export class GetFailureMessageTests {
         let expected = chalk.red("FAIL: ") + chalk.bold(name) + "\n" + chalk.gray(tabbedDiag);
         let actual = provider.getFailureMessage(assertion);
 
-        Expect(actual).toBe(2);
+        Expect(actual).toBe(expected);
     }
 
 }

@@ -1,9 +1,10 @@
 import { IStream } from "./stream.i";
 import * as readline from "readline";
+const through = require("through2");
 
 export class Stream implements IStream {
 
-    private _stream: NodeJS.WritableStream = process.stdout;
+    private _stream: NodeJS.WritableStream = through();
 
     public writeLine(message: string): void {
         this._stream.write(message + "\n");
