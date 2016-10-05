@@ -2,11 +2,15 @@
 src/**/*.ts
 index.ts
 
+# All interfaces
+src/**/*.i.ts
+
 # TypeScript config
 tsconfig.json
 
 # Typings info
 typings.json
+typings
 
 # Tests
 test
