@@ -15,11 +15,8 @@
         "suppressImplicitAnyIndexErrors": true,
         "newLine": "LF"
     },
-    "exclude": [
-        "node_modules",
-        "typings"
-    ],
     "filesGlob": [
+        "typings/index.d.ts",
         "src/**/*.ts",
         "test/**/*.ts",
         "index.ts"
