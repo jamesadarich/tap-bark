@@ -10,6 +10,10 @@ import { Assertion as TAPAssertion, Results as TAPResults } from "./external/tap
 
 const parser = require("tap-parser");
 const duplexer = require("duplexer");
+var pass = 0;
+var fail = 0;
+var skip = 0;
+var failures = [];
 
 export class TapBark {
 
@@ -37,6 +41,86 @@ export class TapBark {
 
     public getPipeable(): any {
         return duplexer(this.parser, this.output.getStream().getUnderlyingStream());
+    }
+
+    private _handleMessage(info: any) {
+
+      var _this = this;
+      var fixtureParse = _this.FIXTURE_REGEXP.exec(info);
+      if (fixtureParse !== null) {
+          //console.log("fixture");
+
+          _this.output.setFixtureName(fixtureParse[1]);
+      }
+      else if (!info.startsWith("#")) {
+          //console.log("non comment");
+          var recordingErrorDetails = false;
+
+          if (info.startsWith("ok")) {
+             if (info.indexOf("# skip") > -1) {
+                skip++;
+             }
+             else {
+              pass++;
+           }
+              var testName = info.substr((<string>info).indexOf(" ", 3) + 1);
+              _this.output.setTestName(testName);
+          }
+          else if (info.startsWith("not ok")) {
+
+              var messageSplit = info.replace("not ok ", "").split("\n");
+
+              var testName = info.substr((<string>info).indexOf(" ", 7) + 1);
+              this.output.setTestName(testName);
+
+              failures.push({
+                  name: messageSplit[0],
+                  diag: {
+                      message: testName
+                  }
+              });
+              fail++;
+          }
+          else if (failures[failures.length - 1]) {
+              failures[failures.length - 1].diag.message += info;
+          }
+      }
+      else {
+         //console.log("NOT LOGGED", info);
+      }
+   }
+
+    pipe (p) {
+        //pipable.pipe(this.parser);
+
+        p.stdout.on("data", (data) => {
+            //console.log("piped", data.toString());
+
+            var info = data.toString();
+
+            const messages = info.split("\n");
+
+            messages.forEach(message => this._handleMessage(message));
+        });
+
+        p.on("close", (code) => {
+            setTimeout(() => {
+               var _results = {
+                   pass: pass,
+                   fail: fail,
+                   ignore: skip,
+                   failures: failures
+               };
+               this.output.outputResults(_results);
+               process.exit(code);
+            }, 1);
+            /*if (_results.fail === 0) {
+                process.exit(0);
+            }
+            else {
+                process.exit(1);
+            }*/
+        });
     }
 
     private FIXTURE_REGEXP: RegExp = /# FIXTURE (.*)/g;
