@@ -101,6 +101,7 @@ export class TapBark {
 
     pipe (p) {
         //pipable.pipe(this.parser);
+        this.output.getStream().stream = process.stdout;
 
         p.stdout.on("data", (data) => {
             //console.log("piped", data.toString());
