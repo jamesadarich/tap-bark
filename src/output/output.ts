@@ -53,6 +53,31 @@ export class Output {
         this._stream.cursorTo(0, undefined);
     }
 
+    public setProgress(current: number, total: number): void {
+        // move up three rows
+        this._stream.moveCursor(0, -3);
+
+        // clear the line
+        this._stream.clearLine();
+
+        const totalString = total.toString();
+
+        let currentString = current.toString();
+
+        while (currentString.length < totalString.length) {
+           currentString = " " + currentString;
+        }
+
+        // write the new name
+        this._stream.write(currentString + " / " + totalString);
+
+        // move down three rows
+        this._stream.moveCursor(0, 3);
+
+        // set the cursor to 0 x (all the way left), we don't want to move it up or down
+        this._stream.cursorTo(0, undefined);
+    }
+
     public outputResults(results: IResults): void {
         let total = results.pass + results.fail + results.ignore;
 

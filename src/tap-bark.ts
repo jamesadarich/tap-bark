@@ -13,6 +13,8 @@ const duplexer = require("duplexer");
 var pass = 0;
 var fail = 0;
 var skip = 0;
+var total = 0;
+var current = 0;
 var failures = [];
 
 export class TapBark {
@@ -52,11 +54,15 @@ export class TapBark {
 
           _this.output.setFixtureName(fixtureParse[1]);
       }
+      else if (/^[0-9]*\.\.[0-9]*$/.test(info)) {
+         total = parseInt(info.substr(info.indexOf("..") + 2));
+      }
       else if (!info.startsWith("#")) {
           //console.log("non comment");
           var recordingErrorDetails = false;
 
           if (info.startsWith("ok")) {
+             current++;
              if (info.indexOf("# skip") > -1) {
                 skip++;
              }
@@ -65,13 +71,16 @@ export class TapBark {
            }
               var testName = info.substr((<string>info).indexOf(" ", 3) + 1);
               _this.output.setTestName(testName);
+              this.output.setProgress(current, total);
           }
           else if (info.startsWith("not ok")) {
+             current++;
 
               var messageSplit = info.replace("not ok ", "").split("\n");
 
               var testName = info.substr((<string>info).indexOf(" ", 7) + 1);
               this.output.setTestName(testName);
+              this.output.setProgress(current, total);
 
               failures.push({
                   name: messageSplit[0],
