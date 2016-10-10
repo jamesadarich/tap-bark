@@ -101,9 +101,9 @@ export class TapBark {
 
     pipe (p) {
         //pipable.pipe(this.parser);
-        this.output.getStream().stream = process.stdout;
+        //this.output.getStream().stream = p;
 
-        p.stdout.on("data", (data) => {
+        p.on("data", (data) => {
             //console.log("piped", data.toString());
 
             var info = data.toString();
@@ -112,6 +112,9 @@ export class TapBark {
 
             messages.forEach(message => this._handleMessage(message));
         });
+
+
+        //p.on("close", () => { console.log("\n\n\n\n\nENDENDENEDNEDNEDE\n\n\n\n\n") });
 
         p.on("close", (code) => {
             setTimeout(() => {
