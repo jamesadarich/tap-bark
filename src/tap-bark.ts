@@ -75,12 +75,12 @@ export class TapBark {
             };
 
             this.output.outputResults(_results);
-            /*
+
             if (results.ok) {
                 process.exit(0);
             } else {
                 process.exit(1);
-            }*/
+            }
         });
     }
 }
