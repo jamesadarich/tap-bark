@@ -88,7 +88,6 @@ export class Output {
 
         if (results.failures.length > 0) {
             results.failures.forEach(f => {
-               this._stream.writeLine("FAILURE " + JSON.stringify(f));
                 this._stream.writeLine("");
                 this._stream.writeLine(this._outputProvider.getFailureMessage(f));
             })
