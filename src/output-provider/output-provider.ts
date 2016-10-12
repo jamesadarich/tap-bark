@@ -2,7 +2,6 @@ import { IOutputProvider } from "./output-provider.i";
 import { ResultType } from "../result-type";
 import { Assertion } from "../external/tap-parser";
 const chalk = require("chalk");
-const indent = require("indenthero");
 
 export class OutputProvider implements IOutputProvider {
     public getResultMessage(type: ResultType, typeCount: number, totalCount: number): string {
@@ -29,9 +28,14 @@ export class OutputProvider implements IOutputProvider {
     }
 
     public getFailureMessage(assertion: Assertion): string {
-        // tab the diagnostic info
-        let diag = indent(assertion.diag.message);
 
-        return chalk.red("FAIL: ") + chalk.bold(assertion.name) + "\n" + chalk.gray(diag);
+      const failureTitle = chalk.red("FAIL: ") + chalk.bold(assertion.name) + "\n";
+
+        if (assertion.diag) {
+           return failureTitle + assertion.diag.message + "\nExpected: " + assertion.diag.data.expect + "\n  Actual: " + assertion.diag.data.got;
+
+        }
+
+        return failureTitle + "Failure reason unknown.";
     }
 }
