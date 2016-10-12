@@ -92,6 +92,8 @@ export class Output {
                 this._stream.writeLine(this._outputProvider.getFailureMessage(f));
             })
         }
+
+        this._stream.getUnderlyingStream().end();
     }
 
     public getStream(): IStream {

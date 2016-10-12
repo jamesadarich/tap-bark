@@ -30,8 +30,8 @@ export class OutputProvider implements IOutputProvider {
 
     public getFailureMessage(assertion: Assertion): string {
         // tab the diagnostic info
-        //let diag = indent(assertion.diag.message);
+        let diag = indent(assertion.diag.message);
 
-        return chalk.red("FAIL: ") + chalk.bold(assertion.name) + "\n" + chalk.gray("diag");
+        return chalk.red("FAIL: ") + chalk.bold(assertion.name) + "\n" + chalk.gray(diag);
     }
 }
