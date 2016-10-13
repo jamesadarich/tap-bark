@@ -17,7 +17,8 @@ export class GetFailureMessageTests {
             ok: false,
             name: name,
             diag: {
-                message: diag
+                message: diag,
+                data: {}
             }
         };
 
