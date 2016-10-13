@@ -10,17 +10,12 @@ import { Assertion as TAPAssertion, Results as TAPResults } from "./external/tap
 
 const parser = require("tap-parser");
 const duplexer = require("duplexer");
-var pass = 0;
-var fail = 0;
-var skip = 0;
-var total = 0;
-var current = 0;
-var failures = [];
 
 export class TapBark {
 
     private output: IOutput;
-    private parser: NodeJS.EventEmitter;
+    private parser: NodeJS.EventEmitter;    
+    private _planEnd = 0;
 
     constructor (output: IOutput, parser: NodeJS.EventEmitter) {
         this.output = output;
@@ -55,7 +50,7 @@ export class TapBark {
 
     private setupListeners(): void {
       this.parser.on("plan", (plan: any) => {
-         total = plan.end;
+         this._planEnd = plan.end;
       });
 
         this.parser.on("comment", (comment: string) => {
@@ -68,7 +63,7 @@ export class TapBark {
 
         this.parser.on("assert", (assertion: TAPAssertion) => {
             this.output.setTestName(assertion.name);
-            this.output.setProgress(assertion.id, total)
+            this.output.setProgress(assertion.id, this._planEnd)
         });
 
         this.parser.on("complete", (results: TAPResults) => {
