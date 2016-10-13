@@ -21,7 +21,7 @@ export class Output {
 
     public setFixtureName(name: string): void {
         // move up two rows
-        this._stream.moveCursor(0, -2);
+        this._stream.moveCursor(0, -3);
 
         // clear the line
         this._stream.clearLine();
@@ -30,7 +30,7 @@ export class Output {
         this._stream.write(name);
 
         // move down two rows
-        this._stream.moveCursor(0, 2);
+        this._stream.moveCursor(0, 3);
 
         // set the cursor to 0 x (all the way left), we don't want to move it up or down
         this._stream.cursorTo(0, undefined);
@@ -38,7 +38,7 @@ export class Output {
 
     public setTestName(name: string): void {
         // move up one rows
-        this._stream.moveCursor(0, -1);
+        this._stream.moveCursor(0, -2);
 
         // clear the line
         this._stream.clearLine();
@@ -47,6 +47,37 @@ export class Output {
         this._stream.write(name);
 
         // move down one rows
+        this._stream.moveCursor(0, 2);
+
+        // set the cursor to 0 x (all the way left), we don't want to move it up or down
+        this._stream.cursorTo(0, undefined);
+    }
+
+    public setProgress(current: number, total: number): void {
+        // move up three rows
+        this._stream.moveCursor(0, -1);
+
+        // clear the line
+        this._stream.clearLine();
+
+        let progressBar = "";
+
+        const progressResolution = 20;
+
+        const progressGap = Math.round(current / total * progressResolution);
+
+        while (progressBar.length < progressGap) {
+           progressBar += "=";
+        }
+
+        while (progressBar.length < progressResolution) {
+           progressBar += " ";
+        }
+
+        // write the new name
+        this._stream.write("|" + progressBar + "|");
+
+        // move down three rows
         this._stream.moveCursor(0, 1);
 
         // set the cursor to 0 x (all the way left), we don't want to move it up or down

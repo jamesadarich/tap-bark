@@ -14,7 +14,8 @@ const duplexer = require("duplexer");
 export class TapBark {
 
     private output: IOutput;
-    private parser: NodeJS.EventEmitter;
+    private parser: NodeJS.EventEmitter;    
+    private _planEnd = 0;
 
     constructor (output: IOutput, parser: NodeJS.EventEmitter) {
         this.output = output;
@@ -48,6 +49,10 @@ export class TapBark {
     private getIgnoreCount = (results: TAPResults) => (results.skip || 0) + (results.todo || 0);
 
     private setupListeners(): void {
+      this.parser.on("plan", (plan: any) => {
+         this._planEnd = plan.end;
+      });
+
         this.parser.on("comment", (comment: string) => {
             let fixtureParse = this.FIXTURE_REGEXP.exec(comment);
 
@@ -58,6 +63,7 @@ export class TapBark {
 
         this.parser.on("assert", (assertion: TAPAssertion) => {
             this.output.setTestName(assertion.name);
+            this.output.setProgress(assertion.id, this._planEnd)
         });
 
         this.parser.on("complete", (results: TAPResults) => {
