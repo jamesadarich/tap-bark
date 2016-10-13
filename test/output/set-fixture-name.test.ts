@@ -21,15 +21,15 @@ export class SetFixtureNameTests {
 
         let stream = new StreamBuilder().build();
         SpyOn(stream, "moveCursor").andCall((x: number, y: number) => {
-            if (x === 0 && y === -2) {
+            if (x === 0 && y === -3) {
                 moveCursorUpIndex = currentCallIndex;
-                currentCallIndex++;
             }
 
-            if (x === 0 && y === 2) {
+            if (x === 0 && y === 3) {
                 moveCursorDownIndex = currentCallIndex;
-                currentCallIndex++;
             }
+            
+            currentCallIndex++;
         });
 
         SpyOn(stream, "clearLine").andCall(() => {
