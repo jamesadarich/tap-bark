@@ -36,7 +36,7 @@ export class OutputResultsTests {
             .build();
 
         output.outputResults(results);
-throw new Error();
+        
         Expect(stream.writeLine).not.toHaveBeenCalledWith(`p ${passes} ${passes}`);
     }
 
