@@ -36,8 +36,8 @@ export class OutputResultsTests {
             .build();
 
         output.outputResults(results);
-        
-        Expect(stream.writeLine).not.toHaveBeenCalledWith(`p ${passes} ${passes}`);
+
+        Expect(stream.writeLine).toHaveBeenCalledWith(`p ${passes} ${passes}`);
     }
 
     @TestCase(5)
