@@ -33,7 +33,6 @@ export class OutputProvider implements IOutputProvider {
 
         if (assertion.diag) {
            return failureTitle + assertion.diag.message + "\nExpected: " + assertion.diag.data.expect + "\n  Actual: " + assertion.diag.data.got;
-
         }
 
         return failureTitle + "Failure reason unknown.";
