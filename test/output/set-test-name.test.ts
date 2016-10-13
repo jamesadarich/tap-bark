@@ -21,15 +21,15 @@ export class SetTestNameTests {
 
         let stream = new StreamBuilder().build();
         SpyOn(stream, "moveCursor").andCall((x: number, y: number) => {
-            if (x === 0 && y === -1) {
+            if (x === 0 && y === -2) {
                 moveCursorUpIndex = currentCallIndex;
-                currentCallIndex++;
             }
 
-            if (x === 0 && y === 1) {
+            if (x === 0 && y === 2) {
                 moveCursorDownIndex = currentCallIndex;
-                currentCallIndex++;
             }
+
+            currentCallIndex++;
         });
 
         SpyOn(stream, "clearLine").andCall(() => {
@@ -54,6 +54,7 @@ export class SetTestNameTests {
         let output = new OutputBuilder()
             .withStream(stream)
             .build();
+
         output.setTestName(testName);
 
         // ensure that the correct calls happened in the correct order
