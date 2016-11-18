@@ -1,4 +1,4 @@
-import * as TapBark from "tap-bark";
+import { TapBark } from "tap-bark";
 import { Test, Expect } from "alsatian";
 import { TapBark as InternalTapBark } from "../../../src/tap-bark";
 
