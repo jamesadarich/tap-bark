@@ -8,8 +8,10 @@
     "tap-bark": "index.js"
   },
   "scripts": {
+    "pretest": "npm run build && npm link && npm run build-integration-tests",
     "test": "alsatian \"./test/**/*.test.js\"",
-    "build": "tsc"
+    "build": "tsc",
+    "build-integration-tests": "tsc -p test/integration-tests"
   },
   "repository": {
     "type": "git",
