@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.6",
   "description": "TAP parser for Alsatian",
   "main": "src/tap-bark.js",
+  "typings": "src/tap-bark.d.ts",
   "bin": {
     "tap-bark": "index.js"
   },
