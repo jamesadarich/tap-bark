@@ -1,7 +1,16 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "experimentalDecorators": true
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "newLine": "LF"
     },
     "include": [
         "node/**/*.test.ts"
