@@ -17,9 +17,10 @@
     },
     "exclude": [
         "node_modules",
-        "**/*.d.ts"
+        "**/*.d.ts",
+        "test/integration-tests/**/*.test.ts"
     ],
-    "filesGlob": [
+    "include": [
         "src/**/*.ts",
         "test/**/*.ts",
         "index.ts"
