@@ -7,7 +7,7 @@
     "tap-bark": "index.js"
   },
   "scripts": {
-    "test": "alsatian \"./test/**/*.test.js\" | node index.js",
+    "test": "alsatian \"./test/**/*.test.js\"",
     "build": "tsc"
   },
   "repository": {
