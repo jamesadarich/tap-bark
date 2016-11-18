@@ -4,26 +4,16 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "isolatedModules": false,
-        "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "declaration": true,
         "noImplicitAny": false,
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
         "newLine": "LF"
     },
-    "exclude": [
-        "node_modules",
-        "**/*.d.ts",
-        "test/integration-tests/**/*.test.ts"
-    ],
     "include": [
-        "src/**/*.ts",
-        "test/**/*.ts",
-        "index.ts"
+        "node/**/*.test.ts"
     ],
     "atom": {
         "rewriteTsconfig": false

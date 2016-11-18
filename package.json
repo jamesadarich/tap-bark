@@ -3,12 +3,15 @@
   "version": "1.0.0-beta.6",
   "description": "TAP parser for Alsatian",
   "main": "src/tap-bark.js",
+  "typings": "src/tap-bark.d.ts",
   "bin": {
     "tap-bark": "index.js"
   },
   "scripts": {
-    "test": "alsatian \"./test/**/*.test.js\" | node index.js",
-    "build": "tsc"
+    "pretest": "npm run build && npm link && npm run build-integration-tests",
+    "test": "alsatian \"./test/**/*.test.js\"",
+    "build": "tsc",
+    "build-integration-tests": "tsc -p test/integration-tests"
   },
   "repository": {
     "type": "git",
@@ -30,7 +33,7 @@
     "through2": "^2.0.1"
   },
   "devDependencies": {
-    "alsatian": "^1.0.0-alpha.16",
+    "alsatian": "^1.0.0-beta.2",
     "typescript": "^2.0.3"
   }
 }
