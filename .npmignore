@@ -1,7 +1,7 @@
 # TypeScript
 *.js.map
 *.ts
-*.d.ts
+!*.d.ts
 
 # TypeScript config
 tsconfig.json
