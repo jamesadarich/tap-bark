@@ -34,8 +34,12 @@ export class OutputProvider implements IOutputProvider {
         if (assertion.diag) {
             let output = failureTitle + assertion.diag.message + "\nExpected: " + assertion.diag.data.expect + "\n  Actual: " + assertion.diag.data.got;
 
-            if (assertion.diag.data.stack_base64) {
-                output = output + "\n=====\n" + new Buffer(assertion.diag.data.stack_base64, 'base64').toString('ascii') + "\n=====";
+            if (assertion.diag.data.stack) {
+                output = output
+                    + "\n=====\n"
+                    + chalk.bold.white("Stack Trace") + "\n\n"
+                    + assertion.diag.data.stack + "\n"
+                    + "=====";
             }
 
             return output;

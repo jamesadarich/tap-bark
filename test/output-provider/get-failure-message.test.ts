@@ -36,7 +36,6 @@ export class GetFailureMessageTests {
     public shouldReturnMessageWithCorrectStack(stack: string) {
         let provider = new OutputProviderBuilder().build();
 
-        let encodedStack = new Buffer(stack).toString("base64");
         let name = "test";
         let message = "bla bla";
         let expect = "good";
@@ -51,7 +50,7 @@ export class GetFailureMessageTests {
                 data: {
                    expect: expect,
                    got: got,
-                   stack_base64: encodedStack
+                   stack: stack
                 }
             }
         };
@@ -62,7 +61,8 @@ export class GetFailureMessageTests {
             + "Expected: " + expect + "\n"
             + "  Actual: " + got + "\n"
             + "=====\n"
-            + new Buffer(assertion.diag.data.stack_base64, 'base64').toString('ascii')+ "\n"
+            + chalk.bold.white("Stack Trace") + "\n\n"
+            + stack + "\n"
             + "=====";
 
         let actual = provider.getFailureMessage(assertion);
