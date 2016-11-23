@@ -8,7 +8,7 @@
     "tap-bark": "index.js"
   },
   "scripts": {
-    "prepublish": "npm test",
+    "prepublish": "in-publish && npm test || not-in-publish",
     "pretest": "npm run build && npm link && npm run build-integration-tests",
     "test": "alsatian \"./test/**/*.test.js\"",
     "build": "tsc",
