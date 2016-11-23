@@ -8,8 +8,8 @@
     "tap-bark": "index.js"
   },
   "scripts": {
-    "prepublish": "npm test",
-    "pretest": "npm run build && npm link && npm run build-integration-tests",
+    "prepublish": "in-publish && npm test || not-in-publish",
+    "pretest": "npm run build && npm link && npm link tap-bark && npm run build-integration-tests",
     "test": "alsatian \"./test/**/*.test.js\"",
     "build": "tsc",
     "build-integration-tests": "tsc -p test/integration-tests"
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/alsatian-test/tap-bark#readme",
   "dependencies": {
+    "@types/node": "^6.0.50",
     "chalk": "^1.1.3",
     "duplexer": "^0.1.1",
     "tap-parser": "^3.0.3",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "alsatian": "^1.0.0-beta.2",
+    "in-publish": "^2.0.0",
     "typescript": "^2.0.3"
   }
 }
