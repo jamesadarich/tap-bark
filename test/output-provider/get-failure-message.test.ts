@@ -31,4 +31,43 @@ export class GetFailureMessageTests {
         Expect(actual).toBe(expected);
     }
 
+    @TestCase("some stack")
+    @TestCase("some other stack")
+    public shouldReturnMessageWithCorrectStack(stack: string) {
+        let provider = new OutputProviderBuilder().build();
+
+        let name = "test";
+        let message = "bla bla";
+        let expect = "good";
+        let got = "evil";
+
+        let assertion: Assertion = {
+            id: 0,
+            ok: false,
+            name: name,
+            diag: {
+                message: message,
+                data: {
+                   expect: expect,
+                   got: got,
+                   stack: stack
+                }
+            }
+        };
+
+        let expected =
+            chalk.red("FAIL: ") + chalk.bold(name) + "\n"
+            + message + "\n"
+            + "Expected: " + expect + "\n"
+            + "  Actual: " + got + "\n"
+            + "=====\n"
+            + chalk.bold.white("Stack Trace") + "\n\n"
+            + stack + "\n"
+            + "=====";
+
+        let actual = provider.getFailureMessage(assertion);
+
+        Expect(actual).toBe(expected);
+    }
+
 }

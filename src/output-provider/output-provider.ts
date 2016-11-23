@@ -29,10 +29,20 @@ export class OutputProvider implements IOutputProvider {
 
     public getFailureMessage(assertion: Assertion): string {
 
-      const failureTitle = chalk.red("FAIL: ") + chalk.bold(assertion.name) + "\n";
+        const failureTitle = chalk.red("FAIL: ") + chalk.bold(assertion.name) + "\n";
 
         if (assertion.diag) {
-           return failureTitle + assertion.diag.message + "\nExpected: " + assertion.diag.data.expect + "\n  Actual: " + assertion.diag.data.got;
+            let output = failureTitle + assertion.diag.message + "\nExpected: " + assertion.diag.data.expect + "\n  Actual: " + assertion.diag.data.got;
+
+            if (assertion.diag.data.stack) {
+                output = output
+                    + "\n=====\n"
+                    + chalk.bold.white("Stack Trace") + "\n\n"
+                    + assertion.diag.data.stack + "\n"
+                    + "=====";
+            }
+
+            return output;
         }
 
         return failureTitle + "Failure reason unknown.";
