@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "alsatian": "^1.0.0-beta.2",
+    "in-publish": "^2.0.0",
     "typescript": "^2.0.3"
   }
 }
