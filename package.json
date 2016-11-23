@@ -9,7 +9,7 @@
   },
   "scripts": {
     "prepublish": "in-publish && npm test || not-in-publish",
-    "pretest": "npm run build && npm link && npm run build-integration-tests",
+    "pretest": "npm run build && npm link && npm link tap-bark && npm run build-integration-tests",
     "test": "alsatian \"./test/**/*.test.js\"",
     "build": "tsc",
     "build-integration-tests": "tsc -p test/integration-tests"
