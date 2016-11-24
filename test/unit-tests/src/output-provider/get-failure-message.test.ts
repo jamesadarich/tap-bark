@@ -1,7 +1,7 @@
 import { Test, TestCase, Expect, SpyOn } from "alsatian";
-import { OutputProviderBuilder } from "../_builders/output-provider-builder";
-import { ResultType } from "../../src/result-type";
-import { Assertion } from "../../src/external/tap-parser";
+import { OutputProviderBuilder } from "../../../_builders/output-provider-builder";
+import { ResultType } from "../../../../src/result-type";
+import { Assertion } from "../../../../src/external/tap-parser";
 const chalk = require("chalk");
 
 export class GetFailureMessageTests {

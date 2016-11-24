@@ -1,10 +1,10 @@
 import { Test, TestCase, Expect, SpyOn, IgnoreTests } from "alsatian";
-import { OutputBuilder } from "../_builders/output-builder";
-import { StreamBuilder } from "../_builders/stream-builder";
-import { OutputProviderBuilder } from "../_builders/output-provider-builder";
-import { IResults } from "../../src/results.i";
-import { ResultType } from "../../src/result-type";
-import { Assertion } from "../../src/external/tap-parser";
+import { OutputBuilder } from "../../../_builders/output-builder";
+import { StreamBuilder } from "../../../_builders/stream-builder";
+import { OutputProviderBuilder } from "../../../_builders/output-provider-builder";
+import { IResults } from "../../../../src/results.i";
+import { ResultType } from "../../../../src/result-type";
+import { Assertion } from "../../../../src/external/tap-parser";
 
 export class OutputResultsTests {
 
