@@ -16,7 +16,7 @@ export class OutputProvider implements IOutputProvider {
                 return chalk.yellow(`Ignore: ${typeCount}/${totalCount}`);
         }
 
-        return undefined;
+        throw new TypeError("Invalid ResultType.");
     }
 
     public getTestFixtureMessage(name: string): string {

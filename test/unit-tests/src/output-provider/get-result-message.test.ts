@@ -38,4 +38,12 @@ export class GetResultMessageTests {
         Expect(actual).toBe(expected);
     }
 
+    @TestCase(5)
+    @TestCase(20)
+    @TestCase(100)
+    public shouldThrowForUnknownresultType(resultType: number) {
+        let provider = new OutputProviderBuilder().build();
+
+        Expect(() => provider.getResultMessage(resultType, 42, 42)).toThrowError(TypeError, "Invalid ResultType.");
+    }
 }
