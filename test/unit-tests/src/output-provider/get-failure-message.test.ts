@@ -70,4 +70,22 @@ export class GetFailureMessageTests {
         Expect(actual).toBe(expected);
     }
 
+    @TestCase("Some failing test")
+    @TestCase("Another failing test")
+    @TestCase("Number test")
+    public shouldReturnUnknownMessageWithMissingDiag(name: string) {
+        let provider = new OutputProviderBuilder().build();
+
+        let assertion: Assertion = {
+            id: 0,
+            ok: false,
+            name: name
+        };
+
+        let expected = chalk.red("FAIL: ") + chalk.bold(name) + "\nFailure reason unknown.";
+        let actual = provider.getFailureMessage(assertion);
+
+        Expect(actual).toBe(expected);
+    }
+
 }
