@@ -74,12 +74,18 @@ export default class TapBarkTests {
 
         Expect(mockParser.on).toHaveBeenCalledWith("complete", Any(Function));
     }
-    
 
-    // create()
+    @Test("create makes a new TapBark")
+    public createReturnsInstanceOfTapBark() {
 
-    // returns a valid TapBark instance
-    // returns a different instance each time
+        Expect(TapBark.create() instanceof TapBark).toBe(true);
+    }
+
+    @Test("create a new TapBark instance every time")
+    public createNewInstanceOfTapBarkEachCall() {
+
+        Expect(TapBark.create()).not.toBe(TapBark.create());
+    }
 
 
     // getPipeable()
