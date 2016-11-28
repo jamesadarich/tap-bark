@@ -1,9 +1,79 @@
+import { Test, Expect, SpyOn, Any } from "alsatian";
+import { TapBark } from "../../../src/tap-bark";
+import { OutputBuilder } from "../../_builders/output-builder";
+const parser = require("tap-parser");
+
 export default class TapBarkTests {
 
-    // CONSTRUCTOR
+    @Test("setup called on output")
+    public setupFunctionCalledOnOutput() {
 
-    // setup called on output
-    // parser on events called
+        const mockOutput = new OutputBuilder().build();
+
+        SpyOn(mockOutput, "setup");
+
+        const mockParser = parser();
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        Expect(mockOutput.setup).toHaveBeenCalled();
+    }
+
+    @Test("plan event handled")
+    public parserPlanEventHandled() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        Expect(mockParser.on).toHaveBeenCalledWith("plan", Any(Function));
+    }
+
+    @Test("comment event handled")
+    public parserCommentEventHandled() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        Expect(mockParser.on).toHaveBeenCalledWith("comment", Any(Function));
+    }
+
+    @Test("assert event handled")
+    public parserAssertEventHandled() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        Expect(mockParser.on).toHaveBeenCalledWith("assert", Any(Function));
+    }
+
+    @Test("complete event handled")
+    public parserCompleteEventHandled() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        Expect(mockParser.on).toHaveBeenCalledWith("complete", Any(Function));
+    }
     
 
     // create()
@@ -28,6 +98,10 @@ export default class TapBarkTests {
     // * otherwise it doesn'this
 
     // on "assert"
+    // test name set correctly
+    // progress set correctly
+
+    // on "exit"
     // * calls output.outputResults with
     //   - correct pass (results.pass or 0)
     //   - correct fail (results.fail or results.failures length or 0)
