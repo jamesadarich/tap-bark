@@ -1,4 +1,4 @@
-import { Test, Expect, SpyOn, Any, FunctionSpy } from "alsatian";
+import { Test, Expect, SpyOn, Any, FunctionSpy, TestCase } from "alsatian";
 import { TapBark } from "../../../src/tap-bark";
 import { OutputBuilder } from "../../_builders/output-builder";
 const parser = require("tap-parser");
@@ -100,11 +100,35 @@ export default class TapBarkTests {
         Expect(tapBark.getPipeable()).not.toBe(tapBark.getPipeable());
     }
 
+    @TestCase(1)
+    @TestCase(2)
+    @TestCase(42)
+    public test(planEnd: number) {
 
-    // getPipeable()
-    
-    // returns a duplex of parser and output stream
-    // returns a different instance each time
+        const mockOutput = new OutputBuilder().build();
+
+        SpyOn(mockOutput, "setProgress");
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        const planEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "plan")[0][1];
+
+        const assertEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "assert")[0][1];
+
+        planEventHandler({ end: planEnd });
+
+        assertEventHandler({ id: 1 });
+
+        Expect(mockOutput.setProgress).toHaveBeenCalledWith(1, planEnd);
+    }
 
 
     // setupListeners()
