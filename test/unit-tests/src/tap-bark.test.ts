@@ -1,7 +1,8 @@
-import { Test, Expect, SpyOn, Any } from "alsatian";
+import { Test, Expect, SpyOn, Any, FunctionSpy } from "alsatian";
 import { TapBark } from "../../../src/tap-bark";
 import { OutputBuilder } from "../../_builders/output-builder";
 const parser = require("tap-parser");
+let duplexer = require("duplexer");
 
 export default class TapBarkTests {
 
@@ -85,6 +86,18 @@ export default class TapBarkTests {
     public createNewInstanceOfTapBarkEachCall() {
 
         Expect(TapBark.create()).not.toBe(TapBark.create());
+    }
+
+    @Test("create a new pipeable instance every time")
+    public createNewInstanceOfPipeableEachCall() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        Expect(tapBark.getPipeable()).not.toBe(tapBark.getPipeable());
     }
 
 
