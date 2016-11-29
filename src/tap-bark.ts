@@ -26,12 +26,12 @@ export class TapBark {
         this.output.setup();
     }
 
-    public static create(): TapBark {
-        let stream = new Stream();
-        let input = parser();
+    public static create(): any {
+        const stream = new Stream();
+        const input = parser();
 
-        let outputProvider = new OutputProvider();
-        let output = new Output(stream, outputProvider);
+        const outputProvider = new OutputProvider();
+        const output = new Output(stream, outputProvider);
 
         return new TapBark(output, input);
     }

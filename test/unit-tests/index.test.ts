@@ -27,6 +27,8 @@ export default class IndexTests {
         require("../../index");
 
         Expect(process.stdin.pipe).toHaveBeenCalledWith(fakeTapBarkPipeable);
+
+        (<any>TapBark.create).restore();
     }
 
     @Test("Tap Bark stream piped to process.stdout")
@@ -54,5 +56,7 @@ export default class IndexTests {
         require("../../index");
 
         Expect(chainedPipe.pipe).toHaveBeenCalledWith(process.stdout);
+
+        (<any>TapBark.create).restore();
     }
 }
