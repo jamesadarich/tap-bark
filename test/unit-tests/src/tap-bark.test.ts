@@ -103,7 +103,7 @@ export default class TapBarkTests {
     @TestCase(1)
     @TestCase(2)
     @TestCase(42)
-    public test(planEnd: number) {
+    public planEventSetsPlanEndCorrectly(planEnd: number) {
 
         const mockOutput = new OutputBuilder().build();
 
@@ -130,15 +130,53 @@ export default class TapBarkTests {
         Expect(mockOutput.setProgress).toHaveBeenCalledWith(1, planEnd);
     }
 
+    @TestCase("")
+    @TestCase("Fixture")
+    @TestCase("A really, really awesome fixture!")
+    public testFixtureCommentSetsFixtureNameCorrectly(fixtureName: string) {
 
-    // setupListeners()
+        const mockOutput = new OutputBuilder().build();
 
-    // on "plan"
-    // * updates this._planEnd
+        SpyOn(mockOutput, "setFixtureName");
 
-    // on "comment"
-    // * calls setFixtureName if starts with #Fixture and a space
-    // * otherwise it doesn'this
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        const commentEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "comment")[0][1];
+
+        commentEventHandler("# FIXTURE " + fixtureName);
+
+        Expect(mockOutput.setFixtureName).toHaveBeenCalledWith(fixtureName);
+    }
+
+    @TestCase("#some uninteresting comment")
+    @TestCase("# Fixture wrong casing")
+    @TestCase("#Fixtureno space")
+    public otherCommentsDoNotSetTheFixtureName(comment: string) {
+
+        const mockOutput = new OutputBuilder().build();
+
+        SpyOn(mockOutput, "setFixtureName");
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        const commentEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "comment")[0][1];
+
+        commentEventHandler(comment);
+
+        Expect(mockOutput.setFixtureName).not.toHaveBeenCalled();
+    }
 
     // on "assert"
     // test name set correctly
