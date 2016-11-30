@@ -202,9 +202,35 @@ export default class TapBarkTests {
         Expect(mockOutput.setTestName).toHaveBeenCalledWith(testName);
     }
 
-    // on "assert"
-    // test name set correctly
-    // progress set correctly
+    @TestCase(1)
+    @TestCase(2)
+    @TestCase(42)
+    public assertEventSetsProgressCorrectly(testId: number) {
+
+        const mockOutput = new OutputBuilder().build();
+
+        SpyOn(mockOutput, "setProgress");
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        const planEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "plan")[0][1];
+
+        const assertEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "assert")[0][1];
+
+        planEventHandler({ end: 42 });
+
+        assertEventHandler({ id: testId });
+
+        Expect(mockOutput.setProgress).toHaveBeenCalledWith(testId, 42);
+    }
 
     // on "exit"
     // * calls output.outputResults with
