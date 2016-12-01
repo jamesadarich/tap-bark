@@ -180,4 +180,18 @@ export class OutputResultsTests {
         Expect(stream.writeLine).toHaveBeenCalledWith(failureMessage);
     }
 
+    @Test()
+    public shouldNotThrowIfFailuresIsUndefined() {
+
+        let stream = new StreamBuilder().build();
+
+        let outputProvider = new OutputProviderBuilder().build();
+
+        let output = new OutputBuilder()
+            .withStream(stream)
+            .withOutputProvider(outputProvider)
+            .build();        
+
+        Expect(() => output.outputResults(<IResults>{})).not.toThrow();
+    }
 }
