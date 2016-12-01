@@ -232,6 +232,56 @@ export default class TapBarkTests {
         Expect(mockOutput.setProgress).toHaveBeenCalledWith(testId, 42);
     }
 
+    @Test()
+    public completeEventResultsOkExitsProcessCodeZero() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        const completeEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "complete")[0][1];
+
+        SpyOn(process, "exit");
+
+        completeEventHandler({ ok: true });
+
+        Expect(process.exit).toHaveBeenCalledWith(0);
+
+        (<any>process.exit).restore();
+
+    }
+
+    @Test()
+    public completeEventResultsNotOkExitsProcessCodeOne() {
+
+        const mockOutput = new OutputBuilder().build();
+
+        const mockParser = parser();
+
+        SpyOn(mockParser, "on");
+
+        const tapBark = new TapBark(mockOutput, mockParser);
+
+        const completeEventHandler = (<FunctionSpy>mockParser.on).calls
+                                    .map(call => call.args)
+                                    .filter(args => args[0] === "complete")[0][1];
+
+        SpyOn(process, "exit");
+
+        completeEventHandler({ ok: false });
+
+        Expect(process.exit).toHaveBeenCalledWith(1);
+
+        (<any>process.exit).restore();
+
+    }
+
     // on "exit"
     // * calls output.outputResults with
     //   - correct pass (results.pass or 0)
