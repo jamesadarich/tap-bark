@@ -1,10 +1,10 @@
 import { Test, TestCase, Expect, SpyOn, IgnoreTests } from "alsatian";
-import { OutputBuilder } from "../_builders/output-builder";
-import { StreamBuilder } from "../_builders/stream-builder";
-import { OutputProviderBuilder } from "../_builders/output-provider-builder";
-import { IResults } from "../../src/results.i";
-import { ResultType } from "../../src/result-type";
-import { Assertion } from "../../src/external/tap-parser";
+import { OutputBuilder } from "../../../_builders/output-builder";
+import { StreamBuilder } from "../../../_builders/stream-builder";
+import { OutputProviderBuilder } from "../../../_builders/output-provider-builder";
+import { IResults } from "../../../../src/results.i";
+import { ResultType } from "../../../../src/result-type";
+import { Assertion } from "../../../../src/external/tap-parser";
 
 export class OutputResultsTests {
 
@@ -180,4 +180,18 @@ export class OutputResultsTests {
         Expect(stream.writeLine).toHaveBeenCalledWith(failureMessage);
     }
 
+    @Test()
+    public shouldNotThrowIfFailuresIsUndefined() {
+
+        let stream = new StreamBuilder().build();
+
+        let outputProvider = new OutputProviderBuilder().build();
+
+        let output = new OutputBuilder()
+            .withStream(stream)
+            .withOutputProvider(outputProvider)
+            .build();        
+
+        Expect(() => output.outputResults(<IResults>{})).not.toThrow();
+    }
 }

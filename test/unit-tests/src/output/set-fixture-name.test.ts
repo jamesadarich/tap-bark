@@ -1,6 +1,6 @@
 import { TestCase, Expect, SpyOn } from "alsatian";
-import { OutputBuilder } from "../_builders/output-builder";
-import { StreamBuilder } from "../_builders/stream-builder";
+import { OutputBuilder } from "../../../_builders/output-builder";
+import { StreamBuilder } from "../../../_builders/stream-builder";
 
 export class SetFixtureNameTests {
 

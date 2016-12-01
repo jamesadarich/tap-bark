@@ -8,10 +8,12 @@
     "tap-bark": "index.js"
   },
   "scripts": {
-    "prepublish": "in-publish && npm test || not-in-publish",
-    "pretest": "npm run build && npm link && npm link tap-bark && npm run build-integration-tests",
-    "test": "alsatian \"./test/**/*.test.js\"",
+    "prepublish": "in-publish && npm test && npm run build || not-in-publish",
+    "pretest": "npm run install-self && npm run build-integration-tests && npm run build-with-maps",
+    "install-self": "npm run build && npm link && npm link tap-bark",
+    "test": "nyc --reporter=lcov --reporter=html alsatian \"./test/**/*.test.js\" && nyc report",
     "build": "tsc",
+    "build-with-maps": "tsc --sourceMap -p ./",
     "build-integration-tests": "tsc -p test/integration-tests"
   },
   "repository": {
@@ -36,7 +38,9 @@
   },
   "devDependencies": {
     "alsatian": "^1.0.0-beta.2",
+    "coveralls": "^2.11.15",
     "in-publish": "^2.0.0",
+    "nyc": "^10.0.0",
     "typescript": "^2.0.3"
   }
 }

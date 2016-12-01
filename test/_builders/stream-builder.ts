@@ -8,7 +8,8 @@ export class StreamBuilder {
             write: (message: string) => { },
             moveCursor: (x: number, y: number) => { },
             cursorTo: (x: number, y: number) => { },
-            clearLine: () => { }
+            clearLine: () => { },
+            getUnderlyingStream: () => { return <any>{ on: () => {}} }
         };
     }
 
