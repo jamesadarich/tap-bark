@@ -71,7 +71,7 @@ export class TapBark {
                 pass: this.getPassCount(results),
                 fail: this.getFailCount(results),
                 ignore: this.getIgnoreCount(results),
-                failures: results.failures
+                failures: results.failures || []
             };
 
             this.output.outputResults(_results);
