@@ -190,7 +190,7 @@ export class OutputResultsTests {
         let output = new OutputBuilder()
             .withStream(stream)
             .withOutputProvider(outputProvider)
-            .build();        
+            .build();
 
         Expect(() => output.outputResults(<IResults>{})).not.toThrow();
     }

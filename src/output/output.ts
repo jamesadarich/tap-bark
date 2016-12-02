@@ -96,7 +96,7 @@ export class Output {
             results.failures.forEach(f => {
                 this._stream.writeLine("");
                 this._stream.writeLine(this._outputProvider.getFailureMessage(f));
-            })
+            });
         }
     }
 

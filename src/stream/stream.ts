@@ -5,7 +5,7 @@ const through = require("through2");
 export class Stream implements IStream {
 
    private _stream: NodeJS.WritableStream = through();
-   
+
    public get stream() {
       return this._stream;
    }
