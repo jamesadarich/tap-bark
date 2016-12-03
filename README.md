@@ -6,3 +6,4 @@ TAP parser for Alsatian.
 [![license](https://img.shields.io/github/license/alsatian-test/tap-bark.svg)](https://github.com/alsatian-test/tap-bark/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/alsatian-test/tap-bark.svg?branch=master)](https://travis-ci.org/alsatian-test/tap-bark)
 [![Coverage Status](https://coveralls.io/repos/github/alsatian-test/tap-bark/badge.svg?branch=master)](https://coveralls.io/github/alsatian-test/tap-bark?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/alsatian-test/tap-bark/badge.svg)](https://snyk.io/test/github/alsatian-test/tap-bark)
