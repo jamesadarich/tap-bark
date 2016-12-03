@@ -28,7 +28,7 @@ export class SetFixtureNameTests {
             if (x === 0 && y === 3) {
                 moveCursorDownIndex = currentCallIndex;
             }
-            
+
             currentCallIndex++;
         });
 

@@ -9,7 +9,7 @@ export default class GetStreamTests {
     @TestCase({ "a": "stream" })
     @TestCase({ "a": "far", "more": { "complex": "stream" }})
     public returnsSameStreamAsInjected(expectedStream: IStream) {
-        const output = new Output(expectedStream,<IOutputProvider>{});
+        const output = new Output(expectedStream, <IOutputProvider>{});
 
         Expect(output.getStream()).toBe(expectedStream);
 
