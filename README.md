@@ -9,3 +9,5 @@ TAP parser for Alsatian.
 [![Known Vulnerabilities](https://snyk.io/test/github/alsatian-test/tap-bark/badge.svg)](https://snyk.io/test/github/alsatian-test/tap-bark)
 [![Code Climate](https://codeclimate.com/github/alsatian-test/tap-bark/badges/gpa.svg)](https://codeclimate.com/github/alsatian-test/tap-bark)
 [![Issue Count](https://codeclimate.com/github/alsatian-test/tap-bark/badges/issue_count.svg)](https://codeclimate.com/github/alsatian-test/tap-bark)
+[![bitHound Code](https://www.bithound.io/github/alsatian-test/tap-bark/badges/code.svg)](https://www.bithound.io/github/alsatian-test/tap-bark)
+[![bitHound Dependencies](https://www.bithound.io/github/alsatian-test/tap-bark/badges/dependencies.svg)](https://www.bithound.io/github/alsatian-test/tap-bark/master/dependencies/npm)
