@@ -11,3 +11,32 @@ TAP parser for Alsatian.
 [![Issue Count](https://codeclimate.com/github/alsatian-test/tap-bark/badges/issue_count.svg)](https://codeclimate.com/github/alsatian-test/tap-bark)
 [![bitHound Code](https://www.bithound.io/github/alsatian-test/tap-bark/badges/code.svg)](https://www.bithound.io/github/alsatian-test/tap-bark)
 [![bitHound Dependencies](https://www.bithound.io/github/alsatian-test/tap-bark/badges/dependencies.svg)](https://www.bithound.io/github/alsatian-test/tap-bark/master/dependencies/npm)
+
+## Usage
+
+You can use TAP Bark via the CLI or Node, Huzzah!!!
+
+### CLI
+
+```
+// an example using alsatian
+alsatian "**/*.spec.js" --tap | tap-bark
+
+// or another test framework
+another-test-framework --your-flags | tap-bark
+```
+
+### Node
+
+```typescript
+import { TapBark } from "tap-bark";
+
+...
+    // create tap bark instance
+    const bark = TapBark.create();
+
+    // setup the streams
+    resultsStream.pipe(bark.getPipeable()) // pipe the TAP stream to TAP Bark
+                 .pipe(process.stdout);    // then TAP Bark's output to the console (or a file if you so wish)
+...
+```
