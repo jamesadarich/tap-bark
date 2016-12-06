@@ -2,7 +2,7 @@
     "name": "tap-bark",
     "version": "1.0.0-rc.0",
     "description": "TAP parser for Alsatian",
-    "main": "../../../../src/tap-bark.js",
+    "main": "src/tap-bark.js",
     "typings": "src/tap-bark.d.ts",
     "bin": {
         "tap-bark": "index.js"
