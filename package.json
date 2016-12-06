@@ -10,7 +10,7 @@
     "scripts": {
         "prepublish": "in-publish && npm test && npm run build || not-in-publish",
         "pretest": "npm run install-self && npm run build-integration-tests && npm run build-with-maps",
-        "install-self": "npm run build && npm link && npm link tap-bark && install-self",
+        "install-self": "npm run build && install-self",
         "test": "npm run tests-with-coverage",
         "tests-with-coverage": "nyc --reporter=lcov --reporter=html alsatian \"./test/**/*.test.js\" && nyc report",
         "review": "tslint \"./**/*.ts\" --exclude \"./**/*.d.ts\" --exclude \"./node_modules/**/*.ts\"",
