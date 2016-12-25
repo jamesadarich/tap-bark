@@ -1,6 +1,6 @@
 {
     "name": "tap-bark",
-    "version": "1.0.0-rc.1",
+    "version": "1.0.0",
     "description": "TAP parser for Alsatian",
     "main": "src/tap-bark.js",
     "typings": "src/tap-bark.d.ts",
