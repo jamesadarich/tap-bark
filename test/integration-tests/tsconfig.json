@@ -10,7 +10,8 @@
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,
-        "newLine": "LF"
+        "newLine": "LF",
+        "lib": [ "es5", "es2015.promise" ]
     },
     "include": [
         "node/**/*.test.ts"
