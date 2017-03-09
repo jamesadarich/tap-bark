@@ -11,7 +11,7 @@
         "noLib": false,
         "preserveConstEnums": true,
         "newLine": "LF",
-        "lib": [ "es5", "es2015.promise" ]
+        "lib": [ "es2015" ]
     },
     "include": [
         "node/**/*.test.ts"
