@@ -18,7 +18,7 @@ export default class IndexTests {
 
         const fakeTapBark = { getPipeable: () => fakeTapBarkPipeable };
 
-        SpyOn(TapBark, "create").andReturn(fakeTapBark);
+        SpyOn(TapBark, "creates").andReturn(fakeTapBark);
 
         // clear cache for index
         delete require.cache[require.resolve("../../index")];
